@@ -19,7 +19,6 @@ body {
   border-radius: 50%;
   background: #444;
   margin: 10px auto;
-  transition: 0.3s;
 }
 
 .red.active {
