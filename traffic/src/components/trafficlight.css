@@ -1,0 +1,35 @@
+body {
+  text-align: center;
+  background-color: #222;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.traffic-container {
+  width: 100px;
+  background: black;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px auto;
+}
+
+.light {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #444;
+  margin: 10px auto;
+  transition: 0.3s;
+}
+
+.red.active {
+  background: red;
+}
+
+.yellow.active {
+  background: yellow;
+}
+
+.green.active {
+  background: green;
+}
