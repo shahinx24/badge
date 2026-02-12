@@ -11,7 +11,7 @@ export default function TrafficLight() {
                 if (prev === "green") return "yellow";
                 return "red";
             });
-        }, 2000); // change every 3 seconds
+        }, 1000); // change every 1 seconds
 
         return () => clearInterval(interval);
     }, []);
