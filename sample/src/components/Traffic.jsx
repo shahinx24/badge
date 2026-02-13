@@ -11,7 +11,7 @@ export default function Traffic(){
                 if(prev === "green") return "yellow";
                 return "red";
             })
-        },1000)
+        },3000)
         return ()=> clearInterval(intreval);
     },[])
 

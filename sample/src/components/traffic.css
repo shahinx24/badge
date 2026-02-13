@@ -1,18 +1,18 @@
 body {
-    background-color: white;
+    background-image: url("../asset/traffic.png");
+    background-size:contain;
+    background-position: center;   /* centers the image */
+    background-repeat: no-repeat;  /* prevents tiling */
 }
 
 .traffic-container {
-    background: black;
-    padding: 10px;
-    width: 100px;
-    border-radius: 10px;
-    margin: 0px 80px 100px;
+    background: transparent;
+    margin: 0px 263px 282px;
 }
 
 .light {
-    width: 60px;
-    height: 60px;
+    width: 58px;
+    height: 58px;
     border-radius: 50%;
     background: #444;
     margin: 20px auto;
