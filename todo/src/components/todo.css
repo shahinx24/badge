@@ -1,12 +1,13 @@
 * {
   box-sizing: border-box;
   font-family: "Segoe UI", sans-serif;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .container {
   background: #1e1e1e;
-  width: 100%;
-  max-width: 420px;
+  width: 400px;
   padding: 20px;
   border-radius: 12px;
   margin: 40px auto;

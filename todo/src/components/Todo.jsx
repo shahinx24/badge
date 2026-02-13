@@ -4,6 +4,7 @@ import "./todo.css"
 export default function Todo() {
     const [task, setTask] = useState("")
     const [update, setUpdate] = useState([])
+    const [complt, setComplt] = useState([])
     const [nextId, setId] = useState(1)
 
     function Add() {
@@ -13,6 +14,17 @@ export default function Todo() {
         setId((prev) => prev + 1)
         setTask("")
     }
+
+    function done(id) {
+        const completedItem = update.find((item) => item.id === id)
+
+        setComplt((prev) => [...prev, completedItem])
+
+        setUpdate((prev) =>
+            prev.filter((item) => item.id !== id)
+        )
+    }
+
 
     function dlt(id) {
         setUpdate((prev) => prev.filter((item) => item.id !== id))
@@ -42,6 +54,12 @@ export default function Todo() {
                         <div className="list-item" key={item.id}>
                             <p className="text">{item.text}</p>
                             <button
+                                className="btn"
+                                onClick={() => done(item.id)}
+                            >
+                                Done
+                            </button>
+                            <button
                                 className="btn-danger"
                                 onClick={() => dlt(item.id)}
                                 aria-label={`Delete ${item.text}`}
@@ -51,6 +69,12 @@ export default function Todo() {
                         </div>
                     ))
                 )}
+            </div>
+                {complt.map((items)=>(
+                    <p key={items.id}>{items.text}</p>
+                ))}
+            <div>
+                
             </div>
         </div>
     )
