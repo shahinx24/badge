@@ -54,7 +54,7 @@ export default function Todo() {
                                 {item.text}
                             </p>
                             <button
-                                className="btn"
+                                className="btn-dn"
                                 onClick={() => done(item.id)}
                             >
                                 Done
