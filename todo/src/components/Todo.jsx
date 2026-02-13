@@ -17,9 +17,7 @@ export default function Todo() {
 
     function done(id) {
         const completedItem = update.find((item) => item.id === id)
-
         setComplt((prev) => [...prev, completedItem])
-
         setUpdate((prev) =>
             prev.filter((item) => item.id !== id)
         )
