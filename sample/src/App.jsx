@@ -1,4 +1,4 @@
-import Traffic from "../"
+import Traffic from "./components/Traffic"
 import './App.css'
 
 function App() {

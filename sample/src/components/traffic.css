@@ -1,0 +1,27 @@
+.traffic-container {
+    background: black;
+    padding: 10px;
+    width: 100px;
+    border-radius: 10px;
+    margin: 20px auto;
+}
+
+.light {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #444;
+    margin: 20px auto;
+}
+
+.red.active {
+    background: red;
+}
+
+.yellow.active {
+    background: yellow;
+}
+
+.green.active {
+    background: green;
+}
