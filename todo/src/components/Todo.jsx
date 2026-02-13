@@ -4,25 +4,25 @@ import "./todo.css"
 export default function Todo() {
     const [task, setTask] = useState("")
     const [update, setUpdate] = useState([])
-    const [complt, setComplt] = useState([])
     const [nextId, setId] = useState(1)
 
     function Add() {
         if (task.trim() === "") return;
-        const newTask = { id: nextId, text: task }
+        const newTask = { id: nextId, text: task, completed: false }
         setUpdate((prev) => [...prev, newTask])
         setId((prev) => prev + 1)
         setTask("")
     }
 
     function done(id) {
-        const completedItem = update.find((item) => item.id === id)
-        setComplt((prev) => [...prev, completedItem])
         setUpdate((prev) =>
-            prev.filter((item) => item.id !== id)
+            prev.map((item) =>
+                item.id === id
+                    ? { ...item, completed: !item.completed }
+                    : item
+            )
         )
     }
-
 
     function dlt(id) {
         setUpdate((prev) => prev.filter((item) => item.id !== id))
@@ -50,7 +50,9 @@ export default function Todo() {
                 ) : (
                     update.map((item) => (
                         <div className="list-item" key={item.id}>
-                            <p className="text">{item.text}</p>
+                            <p className={`text ${item.completed ? "completed" : ""}`}>
+                                {item.text}
+                            </p>
                             <button
                                 className="btn"
                                 onClick={() => done(item.id)}
@@ -67,12 +69,6 @@ export default function Todo() {
                         </div>
                     ))
                 )}
-            </div>
-                {complt.map((items)=>(
-                    <p key={items.id}>{items.text}</p>
-                ))}
-            <div>
-                
             </div>
         </div>
     )
