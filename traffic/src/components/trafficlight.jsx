@@ -17,10 +17,12 @@ export default function TrafficLight() {
     }, []);
 
     return (
+        <>
         <div className="traffic-container">
             <div className={`light red ${light === "red" ? "active" : ""}`} />
             <div className={`light yellow ${light === "yellow" ? "active" : ""}`} />
             <div className={`light green ${light === "green" ? "active" : ""}`} />
         </div>
+        </>
     );
 }
