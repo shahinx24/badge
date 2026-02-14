@@ -1,18 +1,24 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const TodoContext = createContext();
 
 export function TodoProvider({ children }) {
-  const [todos, setTodos] = useState([]);
-  const [loading] = useState(false); // kept for structure
+  const [todos, setTodos] = useState(() => {
+    // load from localStorage on first render
+    const saved = localStorage.getItem("todos");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // save to localStorage whenever todos change
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   function addTodo(text) {
-    const newTodo = {
-      id: Date.now(),
-      text,
-      completed: false,
-    };
-    setTodos((prev) => [...prev, newTodo]);
+    setTodos((prev) => [
+      ...prev,
+      { id: Date.now(), text, completed: false },
+    ]);
   }
 
   function toggleTodo(id) {
@@ -31,7 +37,7 @@ export function TodoProvider({ children }) {
 
   return (
     <TodoContext.Provider
-      value={{ todos, loading, addTodo, toggleTodo, deleteTodo }}
+      value={{ todos, addTodo, toggleTodo, deleteTodo }}
     >
       {children}
     </TodoContext.Provider>
