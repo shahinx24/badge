@@ -1,51 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./todo.css";
-import {
-  getTodos,
-  addTodo,
-  toggleTodo,
-  deleteTodo,
-} from "../api/todoApi";
+import { useTodos } from "../context/TodoContext";
 
 export default function Todo() {
   const [task, setTask] = useState("");
-  const [todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { todos, loading, addTodo, toggleTodo, deleteTodo } = useTodos();
 
-  // Load todos from backend
-  useEffect(() => {
-    getTodos().then((data) => {
-      setTodos(data);
-      setLoading(false);
-    });
-  }, []);
-
-  async function handleAdd() {
-    if (task.trim() === "") return;
-
-    const newTodo = {
-      text: task,
-      completed: false,
-    };
-
-    const savedTodo = await addTodo(newTodo);
-    setTodos((prev) => [...prev, savedTodo]);
+  function handleAdd() {
+    if (!task.trim()) return;
+    addTodo(task);
     setTask("");
-  }
-
-  async function handleDone(todo) {
-    const updated = await toggleTodo(todo.id, !todo.completed);
-
-    setTodos((prev) =>
-      prev.map((item) =>
-        item.id === todo.id ? updated : item
-      )
-    );
-  }
-
-  async function handleDelete(id) {
-    await deleteTodo(id);
-    setTodos((prev) => prev.filter((item) => item.id !== id));
   }
 
   if (loading) return <p>Loading...</p>;
@@ -82,7 +46,7 @@ export default function Todo() {
 
               <button
                 className="btn-dn"
-                onClick={() => handleDone(item)}
+                onClick={() => toggleTodo(item.id)}
                 aria-label={`Mark ${item.text} as done`}
               >
                 Done
@@ -90,7 +54,7 @@ export default function Todo() {
 
               <button
                 className="btn-danger"
-                onClick={() => handleDelete(item.id)}
+                onClick={() => deleteTodo(item.id)}
                 aria-label={`Delete ${item.text}`}
               >
                 Delete
