@@ -1,0 +1,60 @@
+import "./todos.css"
+import { useState } from "react"
+
+export default function Todo(){
+    const [task, setTask] = useState("")
+    const [ update , setUpdate] = useState([])
+    const [ nextId, setId] = useState(1)
+    const [editId, setEditId] = useState(null)
+
+    function add() {
+        if (task.trim() === "") return;
+
+        if (editId !== null) {
+            // EDIT MODE
+            setUpdate((prev) =>
+                prev.map((todo) =>
+                    todo.id === editId
+                        ? { ...todo, text: task }
+                        : todo
+                )
+            )
+            setEditId(null)
+        } else {
+            const newTask = { id: nextId, text: task }
+            setUpdate((prev) => [...prev, newTask])
+            setId(nextId + 1)
+        }
+
+        setTask("")
+    }
+
+    function dlt(id){
+        setUpdate((prev)=> prev.filter((todo)=> todo.id !== id))
+    }
+
+    function edit(id) {
+        const todoToEdit = update.find((todo) => todo.id === id)
+        setTask(todoToEdit.text)
+        setEditId(id)
+    }
+
+    return(
+        <div className="container">
+        <input value={task} placeholder="Enter yourt Task" className="input"
+        onChange={(e)=> setTask(e.target.value)}/>
+        <button className="add-btn" onClick={add}>
+            {editId !== null ? "Update" : "Add"}
+        </button>
+        <div className="ul">
+            {update.map((item)=>(
+                <p className="text" key={item.id}>
+                    {item.text}
+                    <button onClick={()=> edit(item.id)}>Edit</button>
+                    <button onClick={()=> dlt(item.id)} className="dlt-btn">Delete</button>
+                </p>
+            ))}
+        </div>
+        </div>
+    )
+}

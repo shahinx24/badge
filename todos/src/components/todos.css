@@ -1,0 +1,124 @@
+/* 🌈 Main Container */
+.container {
+  width: 500px;
+  margin: 40px auto;
+  padding: 25px;
+  background: linear-gradient(135deg, #0015ff84, #dd009b62);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  animation: popIn 0.6s ease;
+}
+
+/* ✨ Input Field */
+.input {
+  width: 70%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  margin-right: 10px;
+  transition: box-shadow 0.3s ease;
+}
+
+.input:focus {
+  box-shadow: 0 0 10px #2f8dff;
+}
+
+/* ➕ Add / Update Button */
+.add-btn {
+  border-radius: 12px;
+  border: none;
+  padding: 12px 18px;
+  font-size: 1em;
+  font-weight: 600;
+  background: linear-gradient(180deg,#f4f4f4, #8b1fff);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(180deg, #8b1fff, #f4f4f4);
+}
+
+/* 📋 Todo List */
+.ul {
+  padding: 0;
+  margin-top: 25px;
+}
+
+/* 📝 Todo Item */
+.text {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Times New Roman', Times, serif;
+  align-items: center;
+  background: linear-gradient(320deg, #ffffff, #19ecff);
+  color: black;
+  padding: 12px 15px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  font-size: 1.8em;
+  animation: slideUp 0.4s ease;
+}
+
+/* ✏️ Edit Button */
+.text button:first-of-type {
+  background: linear-gradient(320deg, #d1d1d192, #ffa600);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin-left: auto;
+  margin-right: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.text button:first-of-type:hover {
+  transform: rotate(-5deg) scale(1.1);
+}
+
+/* ❌ Delete Button */
+.dlt-btn {
+  border-radius: 8px;
+  border: none;
+  padding: 6px 12px;
+  font-size: 0.9em;
+  font-weight: bold;
+  background: linear-gradient(180deg, #000000be, #ff1919b7);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dlt-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #ff3b3b;
+}
+
+/* 🎬 Animations */
+@keyframes popIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(15px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
