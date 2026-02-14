@@ -1,0 +1,9 @@
+{
+  "todos": [
+    {
+      "text": "Buy milk",
+      "completed": false,
+      "id": 1
+    }
+  ]
+}
