@@ -73,7 +73,7 @@ export default function Todo(){
                 </p>
             ))}
             <div className="ul">
-                <h3>Deleted Task</h3>
+                <h3 className="text">Deleted Task</h3>
                 {dltTask.map((item)=>(
                     <p className="text" key={item.id}>
                         {item.text}
