@@ -30,10 +30,20 @@ export default function Todo(){
         setTask("")
     }
 
-    function dlt(id){
+    function dlt(id, type){
+        if(type === "active"){
         const deletedTodo = update.find((todo) => todo.id === id)
         setDltTask((prev)=> [...prev,deletedTodo])
         setUpdate((prev)=> prev.filter((todo)=> todo.id !== id))
+        }else {
+            setDltTask((prev)=> prev.filter((todo)=> todo.id !== id))
+        }
+    }
+
+    function undo(id){
+        const undoTask = dltTask.find((prev)=> prev.id === id)
+        setUpdate((prev)=> [...prev , undoTask])
+        setDltTask((prev)=> prev.filter((todo)=> todo.id !== id))
     }
 
     function edit(id) {
@@ -59,7 +69,7 @@ export default function Todo(){
                 <p className="text" key={item.id}>
                     {item.text}
                     <button onClick={()=> edit(item.id)}>Edit</button>
-                    <button onClick={()=> dlt(item.id)} className="dlt-btn">Delete</button>
+                    <button onClick={()=> dlt(item.id, "active")} className="dlt-btn">Delete</button>
                 </p>
             ))}
             <div className="ul">
@@ -67,6 +77,8 @@ export default function Todo(){
                 {dltTask.map((item)=>(
                     <p className="text" key={item.id}>
                         {item.text}
+                    <button onClick={()=> undo(item.id)}>Undo</button>
+                    <button onClick={()=> dlt(item.id)} className="dlt-btn">Delete</button>
                     </p>
                 ))}
             </div>
