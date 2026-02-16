@@ -6,6 +6,7 @@ export default function Todo(){
     const [ update , setUpdate] = useState([])
     const [ nextId, setId] = useState(1)
     const [editId, setEditId] = useState(null)
+    const [ dltTask, setDltTask] = useState([])
 
     function add() {
         if (task.trim() === "") return;
@@ -30,6 +31,8 @@ export default function Todo(){
     }
 
     function dlt(id){
+        const deletedTodo = update.find((todo) => todo.id === id)
+        setDltTask((prev)=> [...prev,deletedTodo])
         setUpdate((prev)=> prev.filter((todo)=> todo.id !== id))
     }
 
@@ -59,6 +62,14 @@ export default function Todo(){
                     <button onClick={()=> dlt(item.id)} className="dlt-btn">Delete</button>
                 </p>
             ))}
+            <div className="ul">
+                <h3>Deleted Task</h3>
+                {dltTask.map((item)=>(
+                    <p className="text" key={item.id}>
+                        {item.text}
+                    </p>
+                ))}
+            </div>
         </div>
         </div>
     )
