@@ -39,14 +39,21 @@ export default function Todo(){
         setEditId(id)
     }
 
+    const filterItem = update.filter((todo)=>
+    todo.toLowerCase().includes(search.toLowerCase()))
+
     return(
         <div className="container">
-        <input value={task} placeholder="Enter yourt Task" className="input"
+        <input value={task} placeholder="Enter your Task" className="input"
         onChange={(e)=> setTask(e.target.value)}/>
         <button className="add-btn" onClick={add}>
             {editId !== null ? "Update" : "Add"}
         </button>
+        <input value={serach} placeholder="search your Task" className="input"
+        onChange={(e)=> setTask(e.target.value)}/>
+
         <div className="ul">
+            {/* {filterItem.map((item)=>( */}
             {update.map((item)=>(
                 <p className="text" key={item.id}>
                     {item.text}
@@ -54,6 +61,7 @@ export default function Todo(){
                     <button onClick={()=> dlt(item.id)} className="dlt-btn">Delete</button>
                 </p>
             ))}
+        {/* ))} */}
         </div>
         </div>
     )
