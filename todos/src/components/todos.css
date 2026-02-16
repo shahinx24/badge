@@ -25,6 +25,18 @@
   box-shadow: 0 0 10px #2f8dff;
 }
 
+.search {
+  width: 70%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  margin-right: 10px;
+  transition: box-shadow 0.3s ease;
+  margin-top: 10px;
+}
+
 /* ➕ Add / Update Button */
 .add-btn {
   border-radius: 12px;
