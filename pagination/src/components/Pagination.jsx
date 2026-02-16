@@ -7,7 +7,7 @@ export default function Pagination() {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        fetch("https://jsonplaceholder.typicode.com/users")
+        fetch("https://jsonplaceholder.typicode.com/posts")
             .then(response => response.json())
             .then(data => {
                 setTotalPages(Math.ceil(data.length / itemsPerPage));
@@ -32,14 +32,14 @@ export default function Pagination() {
             <div>
                 <label htmlFor="itemsPerPage">Items per page: </label>
                 <select id="itemsPerPage" value={itemsPerPage} onChange={handleItemsPerPageChange}>
-                    <option value={2}> 2 </option>
                     <option value={5}> 5 </option>
-                    <option value={10}> 10 </option>
+                    <option value={8}> 8 </option>
+                    <option value={12}> 12 </option>
                 </select>
             </div>
             <ul>
                 {items.map(item => (
-                    <li key={item.id}>{item.name}</li>
+                    <li key={item.id}>{item.title}</li>
                 ))}
             </ul>
             <div>
