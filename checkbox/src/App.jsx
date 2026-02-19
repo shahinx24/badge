@@ -3,7 +3,7 @@ import CheckBox from './components/Checkbox'
 import Terms from './components/Terms'
 import "./App.css"
 
-function App() {
+export default function App() {
   return (
     <Routes>
       <Route path="/" element={<CheckBox />} />
@@ -11,5 +11,3 @@ function App() {
     </Routes>
   )
 }
-
-export default App
