@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import CheckBox from './components/Checkbox'
 import Terms from './components/Terms'
+import "./App.css"
 
 function App() {
   return (
