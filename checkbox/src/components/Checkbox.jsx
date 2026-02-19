@@ -11,7 +11,7 @@ export default function CheckBox() {
           checked={checked}
           onChange={(e) => setChecked(e.target.checked)}
         />
-      <a>  Accept Terms</a>
+      <a>  Accept Terms </a>
       </label>
 
       <p>{checked ? "Accepted ✅" : "Not Accepted ❌"}</p>
