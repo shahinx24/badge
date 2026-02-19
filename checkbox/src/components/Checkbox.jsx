@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function CheckBox() {
   const [checked, setChecked] = useState(false);
@@ -11,7 +12,7 @@ export default function CheckBox() {
           checked={checked}
           onChange={(e) => setChecked(e.target.checked)}
         />
-      <a>  Accept Terms </a>
+        <Link to="/terms"> Accept Terms </Link>
       </label>
 
       <p>{checked ? "Accepted ✅" : "Not Accepted ❌"}</p>
