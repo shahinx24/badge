@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function CreateBlog({blogs, setBlogs}){
+export default function CreateBlog({setBlogs}){
     const [input, setInput] = useState("")
     const [des, setDes] = useState("")
     const navigate = useNavigate()
