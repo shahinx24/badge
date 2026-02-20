@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function CreateBlog({ blog, setBlog }){
+export default function CreateBlog({ setBlogs }){
     const [input,setInput] = useState("")
     const [des,setDes] = useState("")
     const navigate = useNavigate()
@@ -9,7 +9,7 @@ export default function CreateBlog({ blog, setBlog }){
     function HandleClick(){
         if(input.trim() === "" || des.trim() === "")return;
         const newTask = { id: Date.now(), text: input , detail:des}
-        setBlog((prev)=> [...prev,newTask])
+        setBlogs((prev)=> [...prev,newTask])
         setInput("")
         setDes("")
         navigate("/view")

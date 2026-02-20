@@ -6,14 +6,14 @@ import Details from './components/Details'
 import ViewBlog from './components/ViewBlog'
 
 function App() {
-  const [blog,setBlog] = useState([])
+  const [blogs,setBlogs] = useState([])
 
   return (
     <>
       <Routes>
-        <Route path="/" element={<CreateBlog  blog={blog} setBlog={setBlog}/> }/>
-        <Route path="/details" element={<Details/> }/>
-        <Route path="/view" element={<ViewBlog/> }/>
+        <Route path="/" element={<CreateBlog  blogs={blogs} setBlogs={setBlogs}/> }/>
+        <Route path="/details" element={<Details blogs={blogs}/> }/>
+        <Route path="/view" element={<ViewBlog blogs={blogs}/> }/>
       </Routes>
     </>
   )

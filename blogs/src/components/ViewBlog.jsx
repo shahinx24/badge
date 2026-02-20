@@ -1,10 +1,10 @@
-export default function ViewBlog({ blog }){
+export default function ViewBlog({ blogs }){
     return(
         <>
-            {blog.map((item)=>(
-                <p key={item.id}>
+            {blogs.map((item)=>(
+                <div key={item.id}>
                     <h2>{item.text}</h2>
-                </p>
+                </div>
             ))}
         </>
     )
