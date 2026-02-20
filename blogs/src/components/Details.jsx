@@ -1,17 +1,19 @@
-import { Link , useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom";
 
-export default function Details({ blogs }){
-    const { id } = useParams()
+export default function Details({ blogs }) {
+  const { id } = useParams();
 
-    const stock = blogs.find((item)=>(
-        item.id === Number(id)
-    ))
+  const blog = blogs.find(item => item.id === Number(id));
 
-    return(
-        <>
-            <h2>{stock.text}</h2>
-            <h3>{stock.detail}</h3>
-            <Link to={"/view"}>Go Back</Link>
-        </>
-    )
+  if (!blog) {
+    return <h2>Blog not found</h2>;
+  }
+
+  return (
+    <>
+      <h2>{blog.text}</h2>
+      <h3>{blog.detail}</h3>
+      <Link to="/view">Go Back</Link>
+    </>
+  );
 }

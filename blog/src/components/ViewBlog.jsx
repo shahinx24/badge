@@ -9,7 +9,7 @@ export default function ViewBlog({ blog }) {
                 </Link>
             ))}
             <br /><br />
-            <Link to="/">Go Back</Link>
+            <Link to="/create">Go Back</Link>
         </>
     )
 }
