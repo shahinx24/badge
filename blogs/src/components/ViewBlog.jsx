@@ -8,6 +8,7 @@ export default function ViewBlog({ blogs }){
                     <h2>{item.text}</h2>
                 </Link>
             ))}
+            <Link to={"/"}>Go Back</Link>
         </>
     )
 }

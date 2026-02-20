@@ -12,7 +12,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<CreateBlog  blogs={blogs} setBlogs={setBlogs}/> }/>
-        <Route path="/details" element={<Details blogs={blogs}/> }/>
+        <Route path="/details/:id" element={<Details blogs={blogs}/> }/>
         <Route path="/view" element={<ViewBlog blogs={blogs}/> }/>
       </Routes>
     </>
