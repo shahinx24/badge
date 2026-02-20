@@ -1,10 +1,12 @@
+import { Link } from "react-router-dom"
+
 export default function ViewBlog({ blogs }){
     return(
         <>
             {blogs.map((item)=>(
-                <div key={item.id}>
+                <Link to={`/details/${item.id}`} key={item.id}>
                     <h2>{item.text}</h2>
-                </div>
+                </Link>
             ))}
         </>
     )
