@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function CreateBlog({blog,setBlog}){
+export default function CreateBlog({ setBlog }){
     const [input,setInput] = useState("")
     const [des,setDes] = useState("")
 
