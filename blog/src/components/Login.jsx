@@ -1,6 +1,7 @@
 import { useUsers } from "../context/UserContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../style/Login.css"
 
 export default function Login() {
   const { users } = useUsers();
@@ -30,25 +31,27 @@ export default function Login() {
   }
 
   return (
-    <>
+    <div className="container">
       <h2>Login</h2>
 
       <input
+        className="input"
         placeholder="Username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
 
       <input
+        className="input"
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <button onClick={handleClick}>Login</button>
+      <button className="btn" onClick={handleClick}>Login</button>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
-    </>
+    </div>
   );
 }
