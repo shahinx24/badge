@@ -20,7 +20,8 @@ export default function Timer() {
     const s = seconds % 60;
     return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
   };
-  
+
+  const handleReset = () => { setIsRunning(false); setSeconds(0); };
 
   return (
     <div className="container">
@@ -29,7 +30,7 @@ export default function Timer() {
       <div className="buttons">
         <button onClick={() => setRunning(true)}>Play</button>
         <button onClick={() => setRunning(false)}>Pause</button>
-        <button onClick={() => { setRunning(false); setSeconds(0); }}>
+        <button onClick={() => { handleReset}}>
           Reset
         </button>
       </div>
