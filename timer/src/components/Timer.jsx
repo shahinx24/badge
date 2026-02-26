@@ -20,6 +20,7 @@ export default function Timer() {
     const s = seconds % 60;
     return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
   };
+  
 
   return (
     <div className="container">
