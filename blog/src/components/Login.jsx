@@ -25,7 +25,6 @@ export default function Login() {
       return;
     }
 
-    // ✅ success
     setError("");
     navigate("/create")
   }
