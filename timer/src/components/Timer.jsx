@@ -21,7 +21,10 @@ export default function Timer() {
     return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
   };
 
-  const handleReset = () => { setRunning(false); setSeconds(0); };
+  function handleReset() {
+    setRunning(false);
+    setSeconds(0);
+  }
 
   return (
     <div className="container">
