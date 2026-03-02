@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CreateBlog from "./components/CreateBlog";
 import ViewBlog from "./components/ViewBlog";
 import Details from "./components/Details";
