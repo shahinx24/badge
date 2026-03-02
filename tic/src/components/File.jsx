@@ -6,7 +6,7 @@ export default function File() {
     const [turn, setTurn] = useState(1);
     const [winner, setWinner] = useState(null);
 
-    const winningPatterns = [
+    const patterns = [
         [0, 1, 2], // rows
         [3, 4, 5],
         [6, 7, 8],
@@ -18,7 +18,7 @@ export default function File() {
     ];
 
     function checkWinner(board) {
-        for (let pattern of winningPatterns) {
+        for (let pattern of patterns) {
             const [a, b, c] = pattern;
 
             if (
@@ -29,6 +29,11 @@ export default function File() {
                 return board[a]; // "X" or "O"
             }
         }
+
+        if (board.every(cell => cell !== null)) {
+            return "draw";
+        }
+
         return null;
     }
 
@@ -50,8 +55,8 @@ export default function File() {
 
     return (
         <div className="container">
-            <div className="turn">
-                {winner ? `Winner: ${winner}` : `Turn: ${turn === 1 ? "X" : "O"}`}
+            <div className="winner">
+                {winner ? `Winner: ${winner} 🎉` : `Turn: ${turn === 1 ? "X" : "O"}`}
             </div>
 
             <div className="board">
@@ -65,12 +70,6 @@ export default function File() {
                     </div>
                 ))}
             </div>
-
-            {winner && (
-                <div className="winner">
-                    🎉 Winner: {winner}
-                </div>
-            )}
         </div>
     );
 }
