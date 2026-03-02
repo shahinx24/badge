@@ -23,32 +23,16 @@ export default function File() {
 
     return (
         <div className="board">
-            <div className="cell" onClick={() => check(0)}>
-                {board[0]}
-            </div>
-            <div className="cell" onClick={() => check(1)}>
-                {board[1]}
-            </div>
-            <div className="cell" onClick={() => check(2)}>
-                {board[2]}
-            </div>
-            <div className="cell" onClick={() => check(3)}>
-                {board[3]}
-            </div>
-            <div className="cell" onClick={() => check(4)}>
-                {board[4]}
-            </div>
-            <div className="cell" onClick={() => check(5)}>
-                {board[5]}
-            </div>
-            <div className="cell" onClick={() => check(6)}>
-                {board[6]}
-            </div>
-            <div className="cell" onClick={() => check(7)}>
-                {board[7]}
-            </div>
-            <div className="cell" onClick={() => check(8)}>
-                {board[8]}
+            <div className="board">
+                {board.map((value, i) => (
+                    <div
+                        key={i}
+                        className={`cell ${value === "X" ? "x" : value === "O" ? "o" : ""}`}
+                        onClick={() => check(i)}
+                    >
+                        {value}
+                    </div>
+                ))}
             </div>
         </div>
     )
