@@ -11,12 +11,12 @@ function App() {
 
   return (
     <>
-    <Routes>
-      <Route path="/" element={<Login/>} />
-      <Route path="/create" element={<CreateBlog blogs={blogs} setBlogs={setBlogs} />} />
-      <Route path="/view" element={<ViewBlog blog={blogs} />} />
-      <Route path="/detail/:id" element={<DetailBlog blogs={blogs} />} />
-    </Routes>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/create" element={<CreateBlog blogs={blogs} setBlogs={setBlogs} />} />
+        <Route path="/view" element={<ViewBlog blog={blogs} />} />
+        <Route path="/detail/:id" element={<DetailBlog blogs={blogs} />} />
+      </Routes>
     </>
   )
 }
