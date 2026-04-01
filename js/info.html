@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>System Breach</title>
+
+<style>
+  body {
+    margin: 0;
+    background: black;
+    color: #00ff00;
+    font-family: "Courier New", monospace;
+    overflow: hidden;
+  }
+
+  .terminal {
+    padding: 20px;
+    font-size: 18px;
+    white-space: pre-line;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 10px;
+    background: #00ff00;
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+  }
+
+  .red {
+    color: red;
+    font-weight: bold;
+  }
+
+  .popup {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: black;
+    border: 2px solid red;
+    padding: 20px;
+    color: red;
+    font-size: 20px;
+    display: none;
+    text-align: center;
+  }
+
+  button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="terminal" id="terminal"></div>
+
+<div class="popup" id="popup">
+  ⚠ SYSTEM COMPROMISED ⚠<br><br>
+  All your data has been accessed.<br><br>
+  <button onclick="endPrank()">Recover System</button>
+</div>
+
+<script>
+const lines = [
+  "Initializing system...",
+  "Bypassing security...",
+  "Accessing root directory...",
+  "Decrypting files...",
+  "Injecting payload...",
+  "Access Granted ✔",
+  "",
+  "Collecting personal data...",
+  "Uploading to server...",
+  "",
+  "WARNING: Firewall disabled",
+  "WARNING: Unauthorized access detected",
+];
+
+let i = 0;
+let speed = 50;
+
+function typeLine() {
+  if (i < lines.length) {
+    const terminal = document.getElementById("terminal");
+    terminal.innerHTML += lines[i] + "\n";
+    i++;
+    setTimeout(typeLine, 500);
+  } else {
+    showPopup();
+  }
+}
+
+function showPopup() {
+  document.getElementById("popup").style.display = "block";
+
+  // annoying alert loop 😄
+  let count = 0;
+  const interval = setInterval(() => {
+    alert("⚠ SYSTEM ERROR ⚠");
+    count++;
+    if (count > 2) clearInterval(interval);
+  }, 1000);
+}
+
+function endPrank() {
+  document.body.innerHTML = `
+    <h1 style="color:white; text-align:center; margin-top:20%">
+      😂 APRIL FOOLS 😂
+    </h1>
+  `;
+}
+
+typeLine();
+</script>
+
+</body>
+</html>
