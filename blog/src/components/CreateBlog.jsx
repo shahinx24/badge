@@ -6,9 +6,10 @@ export default function CreateBlog({ currentUser, onCreateBlog }) {
   const [excerpt, setExcerpt] = useState('')
   const [content, setContent] = useState('')
   const [error, setError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate = useNavigate()
 
-  function handleAdd(event) {
+  async function handleAdd(event) {
     event.preventDefault()
 
     if (!title.trim() || !excerpt.trim() || !content.trim()) {
@@ -16,8 +17,17 @@ export default function CreateBlog({ currentUser, onCreateBlog }) {
       return
     }
 
-    onCreateBlog({ title, excerpt, content })
-    navigate('/view')
+    setError('')
+    setIsSubmitting(true)
+
+    try {
+      await onCreateBlog({ title, excerpt, content })
+      navigate('/view')
+    } catch (createError) {
+      setError(createError.message)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -63,8 +73,8 @@ export default function CreateBlog({ currentUser, onCreateBlog }) {
           {error ? <p className="form-error">{error}</p> : null}
 
           <div className="action-row">
-            <button type="submit" className="primary-button">
-              Publish post
+            <button type="submit" className="primary-button" disabled={isSubmitting}>
+              {isSubmitting ? 'Publishing...' : 'Publish post'}
             </button>
             <Link className="secondary-link" to="/view">
               Back to all posts

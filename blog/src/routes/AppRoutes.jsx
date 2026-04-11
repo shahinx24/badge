@@ -7,6 +7,7 @@ import ViewBlog from '../components/ViewBlog'
 export default function AppRoutes({
   blogs,
   currentUser,
+  isLoadingBlogs,
   onCreateBlog,
   onDeleteBlog,
   onLogin,
@@ -32,6 +33,7 @@ export default function AppRoutes({
             <ViewBlog
               blogs={blogs}
               currentUser={currentUser}
+              isLoadingBlogs={isLoadingBlogs}
               onDeleteBlog={onDeleteBlog}
               onLogout={onLogout}
             />

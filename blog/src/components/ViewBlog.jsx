@@ -8,7 +8,13 @@ function formatDate(dateString) {
   })
 }
 
-export default function ViewBlog({ blogs, currentUser, onDeleteBlog, onLogout }) {
+export default function ViewBlog({
+  blogs,
+  currentUser,
+  isLoadingBlogs,
+  onDeleteBlog,
+  onLogout,
+}) {
   return (
     <main className="page-shell">
       <section className="hero panel">
@@ -32,10 +38,15 @@ export default function ViewBlog({ blogs, currentUser, onDeleteBlog, onLogout })
       </section>
 
       <section className="blog-grid">
-        {blogs.length === 0 ? (
+        {isLoadingBlogs ? (
+          <article className="panel empty-state">
+            <h2>Loading posts</h2>
+            <p>Fetching the posts created by {currentUser}.</p>
+          </article>
+        ) : blogs.length === 0 ? (
           <article className="panel empty-state">
             <h2>No posts yet</h2>
-            <p>Start with your first article and it will appear here immediately.</p>
+            <p>Your feed only shows posts created by {currentUser}. Start with your first article.</p>
           </article>
         ) : (
           blogs.map((item) => (

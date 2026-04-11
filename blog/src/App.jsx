@@ -6,19 +6,21 @@ function App() {
   const {
     blogs,
     currentUser,
+    handleLogin,
     handleCreateBlog,
-    setCurrentUser,
     handleDeleteBlog,
     handleLogout,
+    isLoadingBlogs,
   } = useBlogAppState()
 
   return (
     <AppRoutes
       blogs={blogs}
+      isLoadingBlogs={isLoadingBlogs}
       onCreateBlog={handleCreateBlog}
       currentUser={currentUser}
       onDeleteBlog={handleDeleteBlog}
-      onLogin={setCurrentUser}
+      onLogin={handleLogin}
       onLogout={handleLogout}
     />
   )

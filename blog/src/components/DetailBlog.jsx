@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 function formatDate(dateString) {
@@ -11,6 +12,7 @@ function formatDate(dateString) {
 export default function DetailBlog({ blogs, currentUser, onDeleteBlog }) {
   const { id } = useParams()
   const navigate = useNavigate()
+  const [isDeleting, setIsDeleting] = useState(false)
 
   if (!blogs || blogs.length === 0) {
     return (
@@ -27,9 +29,15 @@ export default function DetailBlog({ blogs, currentUser, onDeleteBlog }) {
 
   const selectedBlog = blogs.find((item) => item.id === Number(id))
 
-  function handleDelete() {
-    onDeleteBlog(selectedBlog.id)
-    navigate('/view')
+  async function handleDelete() {
+    setIsDeleting(true)
+
+    try {
+      await onDeleteBlog(selectedBlog.id)
+      navigate('/view')
+    } finally {
+      setIsDeleting(false)
+    }
   }
 
   if (!selectedBlog) {
@@ -67,8 +75,13 @@ export default function DetailBlog({ blogs, currentUser, onDeleteBlog }) {
             Back to dashboard
           </Link>
           {selectedBlog.author === currentUser ? (
-            <button type="button" className="danger-button" onClick={handleDelete}>
-              Delete post
+            <button
+              type="button"
+              className="danger-button"
+              onClick={handleDelete}
+              disabled={isDeleting}
+            >
+              {isDeleting ? 'Deleting...' : 'Delete post'}
             </button>
           ) : null}
         </div>

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { validateUser } from '../lib/auth'
 import './style/Login.css'
 
 export default function Login({ currentUser, onLogin }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function Login({ currentUser, onLogin }) {
     }
   }, [currentUser, navigate])
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
 
     if (username.trim() === '' || password.trim() === '') {
@@ -23,16 +23,17 @@ export default function Login({ currentUser, onLogin }) {
       return
     }
 
-    const user = validateUser(username, password)
-
-    if (!user) {
-      setError('Invalid username or password.')
-      return
-    }
-
+    setIsSubmitting(true)
     setError('')
-    onLogin(user.name)
-    navigate('/view')
+
+    try {
+      await onLogin({ username, password })
+      navigate('/view')
+    } catch (loginError) {
+      setError(loginError.message)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -51,7 +52,7 @@ export default function Login({ currentUser, onLogin }) {
             <span>Username</span>
             <input
               className="input"
-              placeholder="admin"
+              placeholder="user"
               value={username}
               onChange={(event) => setUsername(event.target.value)}
             />
@@ -62,14 +63,14 @@ export default function Login({ currentUser, onLogin }) {
             <input
               className="input"
               type="password"
-              placeholder="admin123"
+              placeholder="user123"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
           </label>
 
-          <button className="btn" type="submit">
-            Login
+          <button className="btn" type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Signing in...' : 'Login'}
           </button>
 
           {error ? <p className="login-error">{error}</p> : null}

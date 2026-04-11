@@ -1,56 +1,75 @@
 import { useEffect, useState } from 'react'
-import {
-  loadBlogs,
-  loadCurrentUser,
-  saveBlogs,
-  syncCurrentUser,
-} from '../lib/storage'
+import { createBlog, deleteBlog, fetchBlogs, loginUser } from '../lib/api'
 
 export default function useBlogAppState() {
-  const [allBlogs, setAllBlogs] = useState(loadBlogs)
-  const [currentUser, setCurrentUser] = useState(loadCurrentUser)
+  const [blogs, setBlogs] = useState([])
+  const [currentUser, setCurrentUser] = useState('')
+  const [isLoadingBlogs, setIsLoadingBlogs] = useState(false)
 
-  const blogs = currentUser
-    ? allBlogs.filter((blog) => blog.author === currentUser)
-    : []
-
-  function handleCreateBlog(blogInput) {
-    const newBlog = {
-      id: Date.now(),
-      title: blogInput.title.trim(),
-      excerpt: blogInput.excerpt.trim(),
-      content: blogInput.content.trim(),
-      author: currentUser,
-      createdAt: new Date().toISOString(),
-    }
-
-    setAllBlogs((prev) => [newBlog, ...prev])
+  async function handleLogin(credentials) {
+    const user = await loginUser(credentials)
+    setCurrentUser(user.name)
   }
 
-  function handleDeleteBlog(blogId) {
-    setAllBlogs((prev) =>
-      prev.filter((blog) => !(blog.id === blogId && blog.author === currentUser))
-    )
+  async function handleCreateBlog(blogInput) {
+    const newBlog = await createBlog({
+      ...blogInput,
+      author: currentUser,
+    })
+
+    setBlogs((prev) => [newBlog, ...prev])
+  }
+
+  async function handleDeleteBlog(blogId) {
+    await deleteBlog(blogId, currentUser)
+    setBlogs((prev) => prev.filter((blog) => blog.id !== blogId))
   }
 
   function handleLogout() {
     setCurrentUser('')
+    setBlogs([])
   }
 
   useEffect(() => {
-    saveBlogs(allBlogs)
-  }, [allBlogs])
+    if (!currentUser) {
+      return
+    }
 
-  useEffect(() => {
-    syncCurrentUser(currentUser)
+    let ignore = false
+
+    async function loadUserBlogs() {
+      setIsLoadingBlogs(true)
+
+      try {
+        const userBlogs = await fetchBlogs(currentUser)
+        if (!ignore) {
+          setBlogs(userBlogs)
+        }
+      } catch {
+        if (!ignore) {
+          setBlogs([])
+        }
+      } finally {
+        if (!ignore) {
+          setIsLoadingBlogs(false)
+        }
+      }
+    }
+
+    loadUserBlogs()
+
+    return () => {
+      ignore = true
+    }
   }, [currentUser])
 
   return {
     blogs,
     currentUser,
+    handleLogin,
     handleCreateBlog,
-    setCurrentUser,
     handleDeleteBlog,
     handleLogout,
+    isLoadingBlogs,
   }
 }
