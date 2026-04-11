@@ -41,6 +41,14 @@ async function parseBody(request) {
   return JSON.parse(Buffer.concat(chunks).toString('utf8'))
 }
 
+function getNextBlogId(blogs) {
+  const maxId = blogs.reduce((currentMax, blog) => {
+    return Number.isFinite(blog.id) && blog.id > currentMax ? blog.id : currentMax
+  }, 0)
+
+  return maxId + 1
+}
+
 function notFound(response) {
   sendJson(response, 404, { message: 'Not found' })
 }
@@ -97,7 +105,7 @@ const server = createServer(async (request, response) => {
       }
 
       const blog = {
-        id: Date.now(),
+        id: getNextBlogId(db.blogs),
         title: title.trim(),
         excerpt: excerpt.trim(),
         content: content.trim(),
