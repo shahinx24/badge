@@ -74,7 +74,7 @@ export default function Login({ currentUser, onLogin }) {
           </button>
 
           {error ? <p className="login-error">{error}</p> : null}
-          <p className="login-hint">Demo credentials: admin / admin123, shahin / shahin@123</p>
+          <p className="login-hint">Demo credentials: user / user123</p>
         </form>
       </section>
     </main>
