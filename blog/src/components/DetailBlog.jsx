@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 function formatDate(dateString) {
   return new Date(dateString).toLocaleDateString('en-IN', {
@@ -8,8 +8,9 @@ function formatDate(dateString) {
   })
 }
 
-export default function DetailBlog({ blogs, currentUser }) {
+export default function DetailBlog({ blogs, currentUser, onDeleteBlog }) {
   const { id } = useParams()
+  const navigate = useNavigate()
 
   if (!blogs || blogs.length === 0) {
     return (
@@ -25,6 +26,11 @@ export default function DetailBlog({ blogs, currentUser }) {
   }
 
   const selectedBlog = blogs.find((item) => item.id === Number(id))
+
+  function handleDelete() {
+    onDeleteBlog(selectedBlog.id)
+    navigate('/view')
+  }
 
   if (!selectedBlog) {
     return (
@@ -56,9 +62,16 @@ export default function DetailBlog({ blogs, currentUser }) {
             <p key={`${selectedBlog.id}-${index}`}>{paragraph}</p>
           ))}
         </div>
-        <Link className="secondary-link" to="/view">
-          Back to dashboard
-        </Link>
+        <div className="action-row">
+          <Link className="secondary-link" to="/view">
+            Back to dashboard
+          </Link>
+          {selectedBlog.author === currentUser ? (
+            <button type="button" className="danger-button" onClick={handleDelete}>
+              Delete post
+            </button>
+          ) : null}
+        </div>
       </article>
     </main>
   )

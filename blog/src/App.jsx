@@ -53,6 +53,10 @@ function App() {
   const [blogs, setBlogs] = useState(loadBlogs)
   const [currentUser, setCurrentUser] = useState(loadCurrentUser)
 
+  function handleDeleteBlog(blogId) {
+    setBlogs((prev) => prev.filter((blog) => blog.id !== blogId))
+  }
+
   useEffect(() => {
     localStorage.setItem(BLOG_STORAGE_KEY, JSON.stringify(blogs))
   }, [blogs])
@@ -89,6 +93,7 @@ function App() {
             <ViewBlog
               blogs={blogs}
               currentUser={currentUser}
+              onDeleteBlog={handleDeleteBlog}
               onLogout={() => setCurrentUser('')}
             />
           ) : (
@@ -100,7 +105,11 @@ function App() {
         path="/detail/:id"
         element={
           currentUser ? (
-            <DetailBlog blogs={blogs} currentUser={currentUser} />
+            <DetailBlog
+              blogs={blogs}
+              currentUser={currentUser}
+              onDeleteBlog={handleDeleteBlog}
+            />
           ) : (
             <Navigate replace to="/" />
           )

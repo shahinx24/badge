@@ -100,7 +100,8 @@
 
 .primary-button,
 .ghost-button,
-.secondary-link {
+.secondary-link,
+.danger-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -125,6 +126,19 @@
 .secondary-link {
   color: #a7512b;
   background: rgba(167, 81, 43, 0.08);
+}
+
+.danger-button {
+  border: 1px solid rgba(180, 35, 24, 0.18);
+  background: rgba(180, 35, 24, 0.08);
+  color: #b42318;
+}
+
+.card-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
 }
 
 .form-panel {

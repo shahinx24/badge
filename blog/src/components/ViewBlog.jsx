@@ -8,7 +8,7 @@ function formatDate(dateString) {
   })
 }
 
-export default function ViewBlog({ blogs, currentUser, onLogout }) {
+export default function ViewBlog({ blogs, currentUser, onDeleteBlog, onLogout }) {
   return (
     <main className="page-shell">
       <section className="hero panel">
@@ -46,9 +46,20 @@ export default function ViewBlog({ blogs, currentUser, onLogout }) {
               </p>
               <h2>{item.title}</h2>
               <p>{item.excerpt}</p>
-              <Link className="secondary-link" to={`/detail/${item.id}`}>
-                Read article
-              </Link>
+              <div className="card-actions">
+                <Link className="secondary-link" to={`/detail/${item.id}`}>
+                  Read article
+                </Link>
+                {/* {item.author === currentUser ? (
+                  <button
+                    type="button"
+                    className="danger-button"
+                    onClick={() => onDeleteBlog(item.id)}
+                  >
+                    Delete
+                  </button>
+                ) : null} */}
+              </div>
             </article>
           ))
         )}
