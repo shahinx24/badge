@@ -7,11 +7,30 @@ import {
 } from '../lib/storage'
 
 export default function useBlogAppState() {
-  const [blogs, setBlogs] = useState(loadBlogs)
+  const [allBlogs, setAllBlogs] = useState(loadBlogs)
   const [currentUser, setCurrentUser] = useState(loadCurrentUser)
 
+  const blogs = currentUser
+    ? allBlogs.filter((blog) => blog.author === currentUser)
+    : []
+
+  function handleCreateBlog(blogInput) {
+    const newBlog = {
+      id: Date.now(),
+      title: blogInput.title.trim(),
+      excerpt: blogInput.excerpt.trim(),
+      content: blogInput.content.trim(),
+      author: currentUser,
+      createdAt: new Date().toISOString(),
+    }
+
+    setAllBlogs((prev) => [newBlog, ...prev])
+  }
+
   function handleDeleteBlog(blogId) {
-    setBlogs((prev) => prev.filter((blog) => blog.id !== blogId))
+    setAllBlogs((prev) =>
+      prev.filter((blog) => !(blog.id === blogId && blog.author === currentUser))
+    )
   }
 
   function handleLogout() {
@@ -19,8 +38,8 @@ export default function useBlogAppState() {
   }
 
   useEffect(() => {
-    saveBlogs(blogs)
-  }, [blogs])
+    saveBlogs(allBlogs)
+  }, [allBlogs])
 
   useEffect(() => {
     syncCurrentUser(currentUser)
@@ -29,7 +48,7 @@ export default function useBlogAppState() {
   return {
     blogs,
     currentUser,
-    setBlogs,
+    handleCreateBlog,
     setCurrentUser,
     handleDeleteBlog,
     handleLogout,

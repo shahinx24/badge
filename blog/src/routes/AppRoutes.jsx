@@ -7,10 +7,10 @@ import ViewBlog from '../components/ViewBlog'
 export default function AppRoutes({
   blogs,
   currentUser,
+  onCreateBlog,
   onDeleteBlog,
   onLogin,
   onLogout,
-  setBlogs,
 }) {
   return (
     <Routes>
@@ -19,7 +19,7 @@ export default function AppRoutes({
         path="/create"
         element={
           currentUser ? (
-            <CreateBlog currentUser={currentUser} setBlogs={setBlogs} />
+            <CreateBlog currentUser={currentUser} onCreateBlog={onCreateBlog} />
           ) : (
             <Navigate replace to="/" />
           )

@@ -50,15 +50,13 @@ export default function ViewBlog({ blogs, currentUser, onDeleteBlog, onLogout })
                 <Link className="secondary-link" to={`/detail/${item.id}`}>
                   Read article
                 </Link>
-                {/* {item.author === currentUser ? (
-                  <button
-                    type="button"
-                    className="danger-button"
-                    onClick={() => onDeleteBlog(item.id)}
-                  >
-                    Delete
-                  </button>
-                ) : null} */}
+                <button
+                  type="button"
+                  className="danger-button"
+                  onClick={() => onDeleteBlog(item.id)}
+                >
+                  Delete
+                </button>
               </div>
             </article>
           ))

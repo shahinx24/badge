@@ -6,7 +6,7 @@ function App() {
   const {
     blogs,
     currentUser,
-    setBlogs,
+    handleCreateBlog,
     setCurrentUser,
     handleDeleteBlog,
     handleLogout,
@@ -15,11 +15,11 @@ function App() {
   return (
     <AppRoutes
       blogs={blogs}
+      onCreateBlog={handleCreateBlog}
       currentUser={currentUser}
       onDeleteBlog={handleDeleteBlog}
       onLogin={setCurrentUser}
       onLogout={handleLogout}
-      setBlogs={setBlogs}
     />
   )
 }

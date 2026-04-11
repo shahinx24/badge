@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-export default function CreateBlog({ currentUser, setBlogs }) {
+export default function CreateBlog({ currentUser, onCreateBlog }) {
   const [title, setTitle] = useState('')
   const [excerpt, setExcerpt] = useState('')
   const [content, setContent] = useState('')
@@ -16,16 +16,7 @@ export default function CreateBlog({ currentUser, setBlogs }) {
       return
     }
 
-    const newBlog = {
-      id: Date.now(),
-      title: title.trim(),
-      excerpt: excerpt.trim(),
-      content: content.trim(),
-      author: currentUser,
-      createdAt: new Date().toISOString(),
-    }
-
-    setBlogs((prev) => [newBlog, ...prev])
+    onCreateBlog({ title, excerpt, content })
     navigate('/view')
   }
 

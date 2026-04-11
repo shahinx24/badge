@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useUsers } from '../context/UserContext'
+import { validateUser } from '../lib/auth'
 import './style/Login.css'
 
 export default function Login({ currentUser, onLogin }) {
-  const { users } = useUsers()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -24,9 +23,7 @@ export default function Login({ currentUser, onLogin }) {
       return
     }
 
-    const user = users.find(
-      (item) => item.name === username.trim() && item.password === password
-    )
+    const user = validateUser(username, password)
 
     if (!user) {
       setError('Invalid username or password.')
@@ -45,7 +42,7 @@ export default function Login({ currentUser, onLogin }) {
           <p className="eyebrow">Editorial</p>
           <h1>Sign in to manage your blog</h1>
           <p>
-            Use one of the seeded accounts from context, then create and browse posts that stay saved in the browser.
+            Use one of the seeded accounts from the JSON user list. After login, you can only view and manage your own posts.
           </p>
         </div>
 
@@ -76,7 +73,7 @@ export default function Login({ currentUser, onLogin }) {
           </button>
 
           {error ? <p className="login-error">{error}</p> : null}
-          <p className="login-hint">Demo credentials: admin / admin123</p>
+          <p className="login-hint">Demo credentials: admin / admin123, shahin / shahin@123</p>
         </form>
       </section>
     </main>
