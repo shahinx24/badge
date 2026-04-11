@@ -1,56 +1,84 @@
-import { useUsers } from "../context/UserContext";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../style/Login.css"
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useUsers } from '../context/UserContext'
+import './style/Login.css'
 
-export default function Login() {
-  const { users } = useUsers();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+export default function Login({ currentUser, onLogin }) {
+  const { users } = useUsers()
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const navigate = useNavigate()
 
-  function handleClick() {
-    if (username.trim() === "" || password.trim() === "") {
-      setError("All fields are required");
-      return;
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/view')
+    }
+  }, [currentUser, navigate])
+
+  function handleSubmit(event) {
+    event.preventDefault()
+
+    if (username.trim() === '' || password.trim() === '') {
+      setError('All fields are required.')
+      return
     }
 
     const user = users.find(
-      u => u.name === username && u.password === password
-    );
+      (item) => item.name === username.trim() && item.password === password
+    )
 
     if (!user) {
-      setError("Invalid username or password");
-      return;
+      setError('Invalid username or password.')
+      return
     }
 
-    setError("");
-    navigate("/create")
+    setError('')
+    onLogin(user.name)
+    navigate('/view')
   }
 
   return (
-    <div className="container">
-      <h2>Login</h2>
+    <main className="login-shell">
+      <section className="login-card">
+        <div className="login-copy">
+          <p className="eyebrow">Editorial</p>
+          <h1>Sign in to manage your blog</h1>
+          <p>
+            Use one of the seeded accounts from context, then create and browse posts that stay saved in the browser.
+          </p>
+        </div>
 
-      <input
-        className="input"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
+        <form className="login-form" onSubmit={handleSubmit}>
+          <label className="field">
+            <span>Username</span>
+            <input
+              className="input"
+              placeholder="admin"
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+            />
+          </label>
 
-      <input
-        className="input"
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+          <label className="field">
+            <span>Password</span>
+            <input
+              className="input"
+              type="password"
+              placeholder="admin123"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </label>
 
-      <button className="btn" onClick={handleClick}>Login</button>
+          <button className="btn" type="submit">
+            Login
+          </button>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
-  );
+          {error ? <p className="login-error">{error}</p> : null}
+          <p className="login-hint">Demo credentials: admin / admin123</p>
+        </form>
+      </section>
+    </main>
+  )
 }

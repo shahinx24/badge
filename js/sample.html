@@ -6,6 +6,15 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <input type="text" id="myInput" placeholder="Type something...">
+    <button id="myButton">Click Me</button>
+    <p></p>
+    <script>
+        document.getElementById('myButton').addEventListener('click', function() {
+            var inputValue = document.getElementById('myInput').value;
+            document.querySelector('p').textContent = 'You entered: ' + inputValue;
+            document.getElementById('myInput').value = '';
+        });
+    </script>
 </body>
 </html>

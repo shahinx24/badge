@@ -1,25 +1,65 @@
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams } from 'react-router-dom'
 
-export default function DetailBlog({ blogs }) {
-    const { id } = useParams()
+function formatDate(dateString) {
+  return new Date(dateString).toLocaleDateString('en-IN', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
+}
 
-    if (!blogs || blogs.length === 0) {
-        return <h2>No blogs available</h2>
-    }
+export default function DetailBlog({ blogs, currentUser }) {
+  const { id } = useParams()
 
-    const selectedBlog = blogs.find(
-        (item) => item.id === Number(id)
-    )
-
-    if (!selectedBlog) {
-        return <h2>Blog not found</h2>
-    }
-
+  if (!blogs || blogs.length === 0) {
     return (
-        <>
-            <h1>{selectedBlog.text}</h1>
-            <h3>{selectedBlog.detail}</h3>
-            <Link to="/view">Go Back</Link>
-        </>
+      <main className="page-shell">
+        <section className="panel empty-state">
+          <h2>No blogs available</h2>
+          <Link className="secondary-link" to="/view">
+            Back to dashboard
+          </Link>
+        </section>
+      </main>
     )
+  }
+
+  const selectedBlog = blogs.find((item) => item.id === Number(id))
+
+  if (!selectedBlog) {
+    return (
+      <main className="page-shell">
+        <section className="panel empty-state">
+          <h2>Blog not found</h2>
+          <p>The article you requested does not exist in the current saved list.</p>
+          <Link className="secondary-link" to="/view">
+            Back to dashboard
+          </Link>
+        </section>
+      </main>
+    )
+  }
+
+  return (
+    <main className="page-shell">
+      <article className="panel article-panel">
+        <p className="eyebrow">Article</p>
+        <h1>{selectedBlog.title}</h1>
+        <p className="meta-line article-meta">
+          <span>{selectedBlog.author}</span>
+          <span>{formatDate(selectedBlog.createdAt)}</span>
+          <span>Reader: {currentUser}</span>
+        </p>
+        <p className="article-excerpt">{selectedBlog.excerpt}</p>
+        <div className="article-body">
+          {selectedBlog.content.split('\n').map((paragraph, index) => (
+            <p key={`${selectedBlog.id}-${index}`}>{paragraph}</p>
+          ))}
+        </div>
+        <Link className="secondary-link" to="/view">
+          Back to dashboard
+        </Link>
+      </article>
+    </main>
+  )
 }
