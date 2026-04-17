@@ -1,0 +1,29 @@
+.user-grid-page {
+  padding: 20px;
+}
+
+.user-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.user-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.user-card-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.user-pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}

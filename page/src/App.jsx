@@ -1,5 +1,5 @@
-import UsersGrid from './UserGrid'
 import './App.css'
+import UsersGrid from './pages/UserGrid';
 
 function App() {
   return (

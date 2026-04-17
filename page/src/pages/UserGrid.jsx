@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./user.css"
 
 const UsersGrid = () => {
   const [users, setUsers] = useState([]);
@@ -23,20 +24,20 @@ const UsersGrid = () => {
   const totalPages = Math.ceil(users.length / USERS_PER_PAGE);
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="user-grid-page">
       <h2>User List</h2>
 
-      <div style={styles.grid}>
+      <div className="user-grid">
         {currentUsers.map((user) => (
-          <div key={user.id} style={styles.card}>
-            <img src={user.image} alt={user.firstName} style={styles.image} />
+          <div key={user.id} className="user-card">
+            <img src={user.image} alt={user.firstName} className="user-card-image" />
             <h4>{user.firstName} {user.lastName}</h4>
             <p>{user.email}</p>
           </div>
         ))}
       </div>
 
-      <div style={styles.pagination}>
+      <div className="user-pagination">
         <button
           onClick={() => setCurrentPage((p) => p - 1)}
           disabled={currentPage === 1}
@@ -55,32 +56,6 @@ const UsersGrid = () => {
       </div>
     </div>
   );
-};
-
-// Styles
-const styles = {
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-    gap: "15px",
-  },
-  card: {
-    border: "1px solid #ccc",
-    padding: "10px",
-    borderRadius: "10px",
-    textAlign: "center",
-  },
-  image: {
-    width: "100px",
-    height: "100px",
-    borderRadius: "50%",
-  },
-  pagination: {
-    marginTop: "20px",
-    display: "flex",
-    justifyContent: "center",
-    gap: "10px",
-  },
 };
 
 export default UsersGrid;
